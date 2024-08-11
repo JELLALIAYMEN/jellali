@@ -1,0 +1,9 @@
+services:
+  eurekamicroservice:
+    build: ./Eurekaserveeraa
+    container_name: eurekamicroservice
+    ports:
+      - '8782:8782'
+    expose:
+      - '8782'
+
