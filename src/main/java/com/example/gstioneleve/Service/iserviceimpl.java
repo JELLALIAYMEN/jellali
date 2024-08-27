@@ -1,15 +1,13 @@
 package com.example.gstioneleve.Service;
 
+import com.example.gstioneleve.DTO.CoursDTO;
 import com.example.gstioneleve.DTO.EleveDTO;
 
 import com.example.gstioneleve.DTO.MatiereDTO;
 import com.example.gstioneleve.DTO.PayementDTO;
 import com.example.gstioneleve.Mapper.Mapperdto;
 import com.example.gstioneleve.entites.*;
-import com.example.gstioneleve.rep.Eleverep;
-import com.example.gstioneleve.rep.Matiererep;
-import com.example.gstioneleve.rep.Noterep;
-import com.example.gstioneleve.rep.PayementRep;
+import com.example.gstioneleve.rep.*;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,6 +22,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -36,36 +35,52 @@ public class iserviceimpl implements Iservice {
     PayementRep payementRep;
     @Autowired
     Mapperdto dto;
+
+
+
     @Autowired
-    Matiererep matiererep;
-    @Autowired
-    Noterep noterep;
+    CoursRep coursRep;
 
     @Override
     public PayementDTO savePayement(MultipartFile file, LocalDate date, Double amount, Typepay typepay, Statuspay statuspay, Modepay modepay, ModalitePay modalitePay, String code) throws IOException {
+        // Définir le chemin du dossier pour le fichier
         Path folderPath = Paths.get(System.getProperty("user.home"), "enset-payec", "paymentec");
         if (!Files.exists(folderPath)) {
             Files.createDirectories(folderPath);
         }
+
+        // Définir le nom du fichier et le chemin complet
         String fileName = UUID.randomUUID().toString();
-        Path filePath = Paths.get(System.getProperty("user.home"), "enset-payec", "paymentec", fileName + ".pdf");
+        Path filePath = Paths.get(folderPath.toString(), fileName + ".pdf");
+
+        // Copier le fichier à partir du MultipartFile
         Files.copy(file.getInputStream(), filePath);
 
-        Eleve eleve = eleverep.findByCode(code);
-        if (eleve != null) {
+        // Trouver l'élève par son code
+        Optional<Eleve> eleveOptional = eleverep.findByCode(code);
+        if (eleveOptional.isPresent()) {
+            Eleve eleve = eleveOptional.get();
+
+            // Créer un objet Payement avec les données fournies
             Payement payement = Payement.builder()
                     .date(date)
                     .amount(amount)
-                    .eleve(eleve)
                     .statuspay(statuspay)
                     .modalitePay(modalitePay)
                     .typepay(typepay)
                     .modepay(modepay)
                     .file(filePath.toUri().toString())
+                    .eleve(eleve)  // Associer l'élève au paiement
                     .build();
+
+            // Sauvegarder le paiement dans la base de données
             payementRep.save(payement);
+
+            // Convertir l'entité Payement en PayementDTO et la retourner
             return dto.fromPayement(payement);
         }
+
+        // Retourner null si l'élève n'est pas trouvé
         return null;
     }
 
@@ -76,15 +91,6 @@ public class iserviceimpl implements Iservice {
     }
 
 
-    @Override
-    public MatiereDTO saveMatiere(MatiereDTO matiereDTO) {
-      Matiere matiere=dto.fromMatiereDTO(matiereDTO);
-      Matiere savdm=matiererep.save(matiere);
-
-
-
-        return  dto.fromMatiere(savdm);
-    }
 
     @Override
     public List<EleveDTO> findAll() {
@@ -105,6 +111,17 @@ public class iserviceimpl implements Iservice {
     }
 
     @Override
+    public EleveDTO findByCode(String code) {
+        Optional<Eleve> eleveOptional = eleverep.findByCode(code);
+        return eleveOptional.map(dto::fromEleve).orElseGet(() -> new EleveDTO());
+
+
+
+
+
+    }
+
+    @Override
     public List<Payement> findPayementsByTypepay(Typepay typepay) {
         List<Payement> payements=payementRep.findPayementsByTypepay(typepay);
         return payementRep.findAll();
@@ -113,7 +130,7 @@ public class iserviceimpl implements Iservice {
 
 
     @Override
-    public EleveDTO saveEleve(MultipartFile photo, String firstname, String secondname, String gmail, Cycle cycle, String addresse) throws IOException {
+    public EleveDTO saveEleve(MultipartFile photo, String firstname, String secondname, String gmail, String addresse) throws IOException {
         // Définir le chemin de stockage des fichiers
         Path folderPath = Paths.get(System.getProperty("user.home"), "enset-payec", "paymentec");
         if (!Files.exists(folderPath)) {
@@ -133,10 +150,10 @@ public class iserviceimpl implements Iservice {
         Eleve eleve = Eleve.builder()
                 .firstname(firstname)
                 .secondname(secondname)
-                .addrese(addresse)
+                .addresse(addresse)
                 .gmail(gmail)
-                .cycle(cycle)
-                .photo(filePath.toUri().toString()) // Stocker le chemin du fichier sous forme d'URI
+                .photo(filePath.toString()) // Stocker le chemin du fichier sous forme de String
+              // Associer l'option à l'élève
                 .build();
 
         // Sauvegarder l'objet Eleve dans la base de données
@@ -145,6 +162,7 @@ public class iserviceimpl implements Iservice {
         // Convertir l'objet Eleve en EleveDTO et le retourner
         return dto.fromEleve(eleve);
     }
+
 
     @Override
     public byte[] getPaymentFile(Long id) throws IOException {
@@ -164,11 +182,8 @@ public class iserviceimpl implements Iservice {
         eleverep.deleteById(id);
     }
 
-//    @Override
-//    public List<EleveDTO> findByCycle(Cycle cycle) {
-//        List<Eleve> eleves=eleverep.findByCycle(cycle);
-//      return   eleves.stream().map(eleve->dto.fromEleve(eleve)).collect(Collectors.toList());
-//    }
+
+
 
 
 }

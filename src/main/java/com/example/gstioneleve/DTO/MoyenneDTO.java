@@ -1,10 +1,10 @@
 package com.example.gstioneleve.DTO;
 
-import com.example.gstioneleve.entites.Eleve;
-import com.example.gstioneleve.entites.Moyenne;
-import com.example.gstioneleve.entites.Periode;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Data;
+import com.example.gstioneleve.entites.Matiere;
+import com.example.gstioneleve.entites.MoyenneType;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,11 +15,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class MoyenneDTO {
-  private Long idmoy; // Identifiant de la moyenne
-  private Double moyennevalue; // Valeur de la moyenne
-  private Periode periode; // Période associée à la moyenne
-
-
-  private String code;
+    private Long id;
+    private Long matiereId; // Peut être null si c'est une moyenne globale
+    private String code;
+    private double moyennevalue;
+    @Enumerated(EnumType.STRING)
+    private MoyenneType moyenneType;
 
 }

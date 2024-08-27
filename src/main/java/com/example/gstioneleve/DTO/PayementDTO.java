@@ -31,5 +31,8 @@ public class PayementDTO {
     private String filePath;
 
     @JsonProperty("eleve")
-    private EleveDTO eleve; // Correction ici, pour utiliser EleveDTO au lieu de Eleve
+
+    private Eleve eleve;
+    private  String FilePath;
+    // Correction ici, pour utiliser EleveDTO au lieu de Eleve
 }

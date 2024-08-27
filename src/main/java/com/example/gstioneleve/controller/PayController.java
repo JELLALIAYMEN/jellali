@@ -1,9 +1,6 @@
 package com.example.gstioneleve.controller;
 
-import com.example.gstioneleve.DTO.EleveDTO;
 import com.example.gstioneleve.DTO.PayementDTO;
-import com.example.gstioneleve.Service.InoteServiceimpl;
-import com.example.gstioneleve.Service.Inoteservice;
 import com.example.gstioneleve.Service.Iservice;
 import com.example.gstioneleve.entites.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,13 +12,13 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
-@CrossOrigin(origins = "http://localhost:64329")
+@CrossOrigin("*")
+
 @RestController
 public class PayController {
     @Autowired
     Iservice IserviceImpl;
-    @Autowired
-    Inoteservice InoteServiceimpl;
+
     @PostMapping(path = "/save-pay", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public PayementDTO savePayement(
             @RequestParam("file") MultipartFile file,
@@ -32,8 +29,14 @@ public class PayController {
             @RequestParam("modepay") Modepay modepay,
             @RequestParam("modalitePay") ModalitePay modalitePay,
             @RequestParam("code") String code) throws IOException {
+
+        if (statuspay == null) {
+            throw new IllegalArgumentException("Statuspay is required");
+        }
+
         return IserviceImpl.savePayement(file, date, amount, typepay, statuspay, modepay, modalitePay, code);
     }
+
     @GetMapping("/payments")
     public List<PayementDTO> getAllPayments(){
         return IserviceImpl.getAllPayments();
@@ -55,8 +58,8 @@ public class PayController {
     public Payement updatePaymentStatus(@RequestParam Statuspay statuspay, @PathVariable Long paymentId) {
         return IserviceImpl.updatePaymentStatus(statuspay, paymentId);
     }
-    @GetMapping("/code/{code}")
-    public List<Payement> findByEleve_Code(@PathVariable String code) {
+    @GetMapping("/eleves/{code}/payments")
+    public List<Payement> findByEleve_Code( @PathVariable("code")String code) {
         return IserviceImpl.findByEleve_Code(code);
     }
     @GetMapping("/typepay/{typepay}")

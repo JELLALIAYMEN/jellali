@@ -2,6 +2,8 @@ package com.example.gstioneleve.entites;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
+
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
@@ -14,8 +16,11 @@ public class Discipline {
 
     @Enumerated(EnumType.STRING)
     private TypeDisc typeDisc;
-
+    private LocalDate date;
+    @Transient
     private String code;
+    @Enumerated(EnumType.STRING)
+    private  Trimestre  trimestre;
 
     @ManyToOne
     @JoinColumn(name = "eleve_id") // Ajoutez cette ligne pour spécifier la colonne de jointure

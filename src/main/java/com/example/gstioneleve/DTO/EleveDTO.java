@@ -20,7 +20,7 @@ public class EleveDTO {
     private String code;
     private String firstname;
     private String secondname;
-    private Cycle cycle;
+
     private String addrese;
     private String gmail;
     private String photo;

@@ -1,8 +1,10 @@
 package com.example.gstioneleve.controller;
 
 import com.example.gstioneleve.DTO.DisciplineDTO;
+import com.example.gstioneleve.DTO.NoteDTO;
 import com.example.gstioneleve.Mapper.Mapperdto;
 import com.example.gstioneleve.Service.DisciplineService;
+import com.example.gstioneleve.entites.Trimestre;
 import com.example.gstioneleve.entites.TypeDisc;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -42,5 +44,9 @@ public class DisciplineController {
     }
 
 
+    @GetMapping("/disciplinefindByCode")
+    public List<DisciplineDTO>findByCodeAndTrimestre (@RequestParam String code, @RequestParam Trimestre trimestre) {
+        return disciplineServiceimpl.findByCodeAndTrimestre(code,trimestre);
+    }
 
 }

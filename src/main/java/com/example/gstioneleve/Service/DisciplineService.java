@@ -1,6 +1,8 @@
 package com.example.gstioneleve.Service;
 
 import com.example.gstioneleve.DTO.DisciplineDTO;
+import com.example.gstioneleve.entites.Discipline;
+import com.example.gstioneleve.entites.Trimestre;
 import com.example.gstioneleve.entites.TypeDisc;
 
 import java.util.List;
@@ -14,4 +16,5 @@ public interface DisciplineService {
     List<DisciplineDTO> findByCode(String code);
     void deleteDiscipline(Long id);
     List<DisciplineDTO> findAll();
+    List<DisciplineDTO> findByCodeAndTrimestre(String code, Trimestre trimestre);
 }

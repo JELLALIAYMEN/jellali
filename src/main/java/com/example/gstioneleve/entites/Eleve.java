@@ -1,23 +1,25 @@
 package com.example.gstioneleve.entites;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.ArrayList;
 import java.util.List;
 
 
 
 import lombok.Data;
+import lombok.experimental.SuperBuilder;
 
-import java.util.List;
 import java.util.UUID;
 
 @Entity
-@Table(name = "eleve")
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Eleve {
 
+public class Eleve  {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -25,48 +27,50 @@ public class Eleve {
     @Column(unique = true)
     private String code;
 
+    @Enumerated(EnumType.STRING)
+    private Trimestre trimestre;
+
+    private String addresse;
+    private String photo;
     private String firstname;
     private String secondname;
-
-    @Enumerated(EnumType.STRING)
-    private Cycle cycle;
-
-    private String addrese;
     private String gmail;
-    private String photo;
 
     @OneToMany(mappedBy = "eleve", cascade = CascadeType.ALL)
     private List<Payement> payements;
 
-    @OneToMany(mappedBy="eleve")
-    private List<Moyenne> moyennes;
+    @OneToMany(mappedBy="el")
+    private List<Matiere> matieres ;
 
 
 
-    @OneToMany(mappedBy="ell")
-    private List<Discipline> disciplines;
 
-    @OneToMany(mappedBy= "elevee")
-    private List<Reclamation> reclamations;
 
-    @OneToMany(mappedBy="eleve")
+    @OneToMany(mappedBy = "eleve")
     private List<Actualite> actualites;
 
+    @OneToMany(mappedBy = "eleve")
+    private List<Cours> cours;
+@OneToMany(mappedBy = "ell")
+private  List<Discipline> disciplines;
+    @OneToMany(mappedBy="eleve")
 
-    @OneToMany(mappedBy="elll", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private  List<Note> notes;
+    private List<Note> notes;
+    @OneToMany(mappedBy="elevee")
+    private  List<Reclamation> reclamations ;
+    @OneToMany(mappedBy="El")
+    private  List<Moyenne> moyennes ;
 
-    @ManyToMany
-    @JoinTable(
-            name = "eleve_matiere",
-            joinColumns = @JoinColumn(name = "eleve_id"),
-            inverseJoinColumns = @JoinColumn(name = "matiere_id")
-    )
-    private  List<Matiere> matieres;
+
+
+    @ManyToOne
+    private Classe classe;
+
+
 
     @PrePersist
     private void generateCode() {
         this.code = UUID.randomUUID().toString();
     }
-
 }
+

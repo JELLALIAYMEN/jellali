@@ -1,6 +1,7 @@
 package com.example.gstioneleve.Service;
 
 
+import com.example.gstioneleve.DTO.CoursDTO;
 import com.example.gstioneleve.DTO.EleveDTO;
 import com.example.gstioneleve.DTO.MatiereDTO;
 import com.example.gstioneleve.DTO.PayementDTO;
@@ -19,11 +20,12 @@ public interface Iservice {
 
 public   List<PayementDTO> getAllPayments();
 
-public MatiereDTO saveMatiere(MatiereDTO matiereDTO);
+
 
     List<Payement> findPayementsByStatuspay(Statuspay statuspay);
 
     List<Payement> findByEleve_Code(String code);
+    public  EleveDTO findByCode(String code);
 
 
     List<EleveDTO> findAll();
@@ -31,13 +33,11 @@ public MatiereDTO saveMatiere(MatiereDTO matiereDTO);
     List<Payement> findPayementsByTypepay(Typepay typepay);
 
 
-    public EleveDTO saveEleve(MultipartFile photo, String firstname, String secondname, String gmail, Cycle cycle, String addresse) throws IOException ;
+    public EleveDTO saveEleve(MultipartFile photo, String firstname, String secondname, String gmail, String addresse
+                              ) throws IOException;
     public byte[] getPaymentFile(Long id) throws IOException;
     public Payement updatePaymentStatus(Statuspay statuspay, Long paymentId);
 void deleteEleve(Long id);
-    //List<EleveDTO> findByCycle(Cycle cycle);
-
-
 
 
 

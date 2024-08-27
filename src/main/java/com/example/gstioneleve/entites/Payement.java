@@ -1,5 +1,6 @@
 package com.example.gstioneleve.entites;
 
+import com.example.gstioneleve.DTO.EleveDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -33,8 +34,11 @@ public class Payement {
 
     @Enumerated(EnumType.STRING)
     private ModalitePay modalitePay;
-
     @ManyToOne
-    @JoinColumn(name = "eleve_id")
-    private Eleve eleve;
+
+
+ Eleve eleve;
+//    private  String FilePath;    @ManyToOne
+//    @JoinColumn(name = "eleve_id")
+//    private
 }

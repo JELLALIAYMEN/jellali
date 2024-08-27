@@ -20,8 +20,8 @@
     <properties>
         <java.version>17</java.version>
         <spring-cloud.version>2023.0.1</spring-cloud.version>
-        <mysql-connector.version>8.0.28</mysql-connector.version>
     </properties>
+
 
     <dependencies>
         <!-- Spring Boot Starter Data JPA -->
@@ -35,11 +35,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-        <!-- Ajoutez cette dépendance dans votre pom.xml -->
-<!--       <dependency>-->
-<!--            <groupId>org.springframework.cloud</groupId>-->
-<!--        <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>-->
-<!--       </dependency>-->
 
         <!-- Springdoc OpenAPI Starter -->
         <dependency>
@@ -52,9 +47,10 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
+            <optional>true</optional>
         </dependency>
 
-        <!-- MySQL Connector -->
+        <!-- H2 Database for runtime -->
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
@@ -67,35 +63,55 @@
             <artifactId>spring-cloud-starter-openfeign</artifactId>
         </dependency>
 
-
         <!-- Spring Boot Starter Actuator -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
-<!--        dependency>-->
-<!--        <groupId>org.springframework.security</groupId>-->
-<!--        <artifactId>spring-security-oauth2-jose</artifactId>-->
-<!--    </dependency>  <-->
-        <!-- Lombok (optional) -->
+
+        <!-- Spring Cloud Config -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-config</artifactId>
+        </dependency>
+
+        <!-- Spring Cloud Stream Test Support -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-stream-test-support</artifactId>
+            <scope>test</scope>
+        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.cloud</groupId>-->
+<!--            <artifactId>spring-cloud-starter-config</artifactId>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.cloud</groupId>-->
+<!--            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>-->
+<!--        </dependency>-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
+        </dependency>
+
+        <!-- Spring Security OAuth2 JOSE -->
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-oauth2-jose</artifactId>
+        </dependency>
+
+        <!-- Lombok -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <optional>true</optional>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.boot</groupId>-->
-<!--            <artifactId>spring-boot-starter-oauth2-resource-server</artifactId>-->
-<!--        </dependency>-->
+
         <!-- Spring Boot Starter Test -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
         </dependency>
 
     </dependencies>
@@ -131,3 +147,6 @@
         </plugins>
     </build>
 </project>
+
+
+
