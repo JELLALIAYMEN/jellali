@@ -4,6 +4,7 @@ package com.example.pfegestiondocument.Model;
 
 import jakarta.validation.constraints.NotNull;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 
@@ -37,6 +38,8 @@ public class TodoDTO {
     @NotNull(message = "Completed cannot be null")
     private  EleveDTO eleveDTO;
     private  TypeTodoDTO typeTodoDTO;
+
+
 
     private Date createdAt;
     private Date updatedAt;

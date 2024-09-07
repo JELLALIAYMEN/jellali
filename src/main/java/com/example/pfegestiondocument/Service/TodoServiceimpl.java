@@ -1,7 +1,9 @@
 package com.example.pfegestiondocument.Service;
 
 import com.example.pfegestiondocument.Exeption.TodoCollectionException;
+import com.example.pfegestiondocument.Model.EleveDTO;
 import com.example.pfegestiondocument.Model.TodoDTO;
+import com.example.pfegestiondocument.Model.TypeTodoDTO;
 import com.example.pfegestiondocument.Rep.Todorep;
 import jakarta.validation.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,17 +78,27 @@ public class TodoServiceimpl implements TodoService {
 
     @Override
     public void deleteTodoById(String id) throws TodoCollectionException {
-        Optional<TodoDTO> todoDTOOptional=todorep.findById(id);
-        if(!todoDTOOptional.isPresent()){
-            throw  new TodoCollectionException(TodoCollectionException.NotFoundExeption(id));
+        Optional<TodoDTO> todoDTOOptional = todorep.findById(id);
+        if (!todoDTOOptional.isPresent()) {
+            throw new TodoCollectionException(TodoCollectionException.NotFoundExeption(id));
 
-        }else {
+        } else {
             todorep.deleteById(id);
         }
 
     }
-}
 
+    @Override
+    public List<TodoDTO> findTodoByeleveDTO(String code) {
+        EleveDTO eleveDTO=todorep.findTodoByeleveDTO(code);
+        if(eleveDTO!=null){
+            List<TodoDTO> todoDTOS=eleveDTO.getDocuments();
+
+        }
+    return   null;
+
+
+}}
 
 
 

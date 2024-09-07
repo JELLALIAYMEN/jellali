@@ -3,6 +3,7 @@ package com.example.pfegestiondocument.Controller;
 import com.example.pfegestiondocument.Exeption.TodoCollectionException;
 import com.example.pfegestiondocument.Model.TodoDTO;
 
+import com.example.pfegestiondocument.Model.TypeTodoDTO;
 import com.example.pfegestiondocument.Rep.Todorep;
 import com.example.pfegestiondocument.Service.TodoService;
 import jakarta.validation.ConstraintViolationException;
@@ -92,5 +93,10 @@ return  new ResponseEntity<>(e.getMessage(), UNPROCESSABLE_ENTITY);
         } catch (TodoCollectionException e) {
             return new ResponseEntity<>(e.getMessage(), NOT_FOUND);
         }
+    }
+    @GetMapping("/todos/{code}")
+    public List<TodoDTO> findTodoByeleveDTO(@PathVariable String code){
+        return  todoService.findTodoByeleveDTO(code);
+
     }
 }

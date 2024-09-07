@@ -4,7 +4,8 @@ public enum TypeTodoDTO{
     Calandier,
     Emploitemps,
     CoursTéléchargé,
-    lienenregistrement,
+    Calandrierexamen,
+    CalandrierAnnuel,
 
 
 }
