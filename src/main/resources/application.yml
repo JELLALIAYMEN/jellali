@@ -1,0 +1,38 @@
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: gestionee-service
+          uri: lb://gestionee
+          predicates:
+            - Path=/eleves/**
+        - id: EcoleDoc-service
+          uri: lb://EcoleDoc
+          predicates:
+            - Path=/documents/**
+        - id: MicroserviceCantine-service
+          uri: lb://MicroserviceCantine
+          predicates:
+            - Path=/cantines/**
+        - id: JwtSecurity-service
+          uri: lb://JwtSecurity
+          predicates:
+            - Path=/api/v1/auth/**
+        - id: config-server-service
+          uri: lb://config-server
+          predicates:
+            - Path=/config/**
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8767/eureka/
+  instance:
+    prefer-ip-address: true
+
+server:
+  port: 8736  # Port pour la passerelle
+
+logging:
+  level:
+    org.springframework.security: DEBUG
