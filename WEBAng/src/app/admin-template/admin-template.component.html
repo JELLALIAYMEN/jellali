@@ -1,0 +1,100 @@
+<mat-toolbar color="accent">
+  <button mat-icon-button (click)="drawer.toggle()">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <span class="spacer"></span>
+  <button mat-button routerLink="/admin/home">Home</button>
+  <button mat-button routerLink="/admin/profile">Profile</button>
+  <button *ngIf="authService.roles.includes('ADMIN')" mat-button [matMenuTriggerFor]="importMenu">
+    <mat-icon>arrow_drop_down</mat-icon>
+    Import
+  </button>
+  <mat-menu #importMenu>
+    <button mat-menu-item routerLink="/admin/elv">Load Elv Component</button>
+    <button mat-menu-item routerLink="/admin/loadpay">Load Payments</button>
+    <button mat-menu-item routerLink="/admin/loaddis">Load Disciplines</button>
+  </mat-menu>
+  <button mat-button *ngIf="authService.isauthenticated">
+    {{ authService.username }}
+  </button>
+  <button (click)="logout()" mat-raised-button color="accent">Logout</button>
+</mat-toolbar>
+
+<mat-drawer-container>
+  <mat-drawer #drawer mode="side" position="start" opened="true">
+    <mat-nav-list>
+      <mat-list-item>
+        <button mat-button routerLink="/admin/dashboard">
+          <mat-icon>dashboard</mat-icon>
+          Dashboard
+        </button>
+      </mat-list-item>
+      <mat-list-item>
+        <button mat-button routerLink="/admin/Students">
+          <mat-icon>group</mat-icon>
+          Students
+        </button>
+      </mat-list-item>
+      <mat-list-item>
+        <button mat-button routerLink="/admin/menu">
+          <mat-icon>restaurant</mat-icon>
+          Menus
+        </button>
+      </mat-list-item>
+      <mat-list-item>
+        <button mat-button routerLink="/admin/payments">
+          <mat-icon>payment</mat-icon> <!-- Icon added for Payments -->
+          Payments
+        </button>
+      </mat-list-item>
+      <mat-list-item>
+        <button mat-button routerLink="/admin/actualités">
+          <mat-icon>announcement</mat-icon>
+          Actualités
+        </button>
+      </mat-list-item>
+      <mat-list-item>
+        <button mat-button routerLink="/admin/disciplines">
+          <mat-icon>gavel</mat-icon>
+          Disciplines
+        </button>
+      </mat-list-item>
+      <mat-list-item>
+        <button mat-button routerLink="/admin/réclamation">
+          <mat-icon>report</mat-icon>
+          Réclamations
+        </button>
+      </mat-list-item>
+      <mat-list-item>
+        <button mat-button routerLink="/admin/document">
+          <mat-icon>description</mat-icon>
+          Documents
+        </button>
+      </mat-list-item>
+      <mat-list-item>
+        <button mat-button routerLink="/admin/messageries">
+          <mat-icon>message</mat-icon>
+          Messages
+        </button>
+      </mat-list-item>
+      <mat-list-item>
+        <button mat-button routerLink="/admin/notes">
+          <mat-icon>note</mat-icon>
+          Notes
+        </button>
+      </mat-list-item>
+      <mat-list-item>
+        <button mat-button routerLink="/admin/moyennes">
+          <mat-icon>equalizer</mat-icon> <!-- Change the icon if needed -->
+          Moyennes
+        </button>
+      </mat-list-item>
+    </mat-nav-list>
+  </mat-drawer>
+
+  <mat-drawer-content>
+    <div style="min-height: 600px">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-drawer-content>
+</mat-drawer-container>
