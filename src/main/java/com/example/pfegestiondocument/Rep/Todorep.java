@@ -1,6 +1,5 @@
 package com.example.pfegestiondocument.Rep;
 
-import com.example.pfegestiondocument.Model.EleveDTO;
 import com.example.pfegestiondocument.Model.TodoDTO;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
@@ -12,5 +11,5 @@ import java.util.Optional;
 public interface Todorep extends MongoRepository<TodoDTO, String> {
     @Query("{'todo': ?0}")
     Optional<TodoDTO> findByTodo(String todo);
-    public EleveDTO findTodoByeleveDTO(String code);
+
 }

@@ -35,9 +35,10 @@ public class TodoDTO {
 
     @NotNull(message = "completed cannot be null")
     private String completed;
-    @NotNull(message = "Completed cannot be null")
-    private  EleveDTO eleveDTO;
+
     private  TypeTodoDTO typeTodoDTO;
+    private Long idel;
+
 
 
 

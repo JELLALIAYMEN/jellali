@@ -93,10 +93,6 @@ return  new ResponseEntity<>(e.getMessage(), UNPROCESSABLE_ENTITY);
         } catch (TodoCollectionException e) {
             return new ResponseEntity<>(e.getMessage(), NOT_FOUND);
         }
-    }
-    @GetMapping("/todos/{code}")
-    public List<TodoDTO> findTodoByeleveDTO(@PathVariable String code){
-        return  todoService.findTodoByeleveDTO(code);
+    }}
 
-    }
-}
+

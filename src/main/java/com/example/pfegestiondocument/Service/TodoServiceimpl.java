@@ -1,13 +1,10 @@
 package com.example.pfegestiondocument.Service;
 
 import com.example.pfegestiondocument.Exeption.TodoCollectionException;
-import com.example.pfegestiondocument.Model.EleveDTO;
 import com.example.pfegestiondocument.Model.TodoDTO;
-import com.example.pfegestiondocument.Model.TypeTodoDTO;
 import com.example.pfegestiondocument.Rep.Todorep;
 import jakarta.validation.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 
@@ -86,19 +83,12 @@ public class TodoServiceimpl implements TodoService {
             todorep.deleteById(id);
         }
 
-    }
-
-    @Override
-    public List<TodoDTO> findTodoByeleveDTO(String code) {
-        EleveDTO eleveDTO=todorep.findTodoByeleveDTO(code);
-        if(eleveDTO!=null){
-            List<TodoDTO> todoDTOS=eleveDTO.getDocuments();
-
-        }
-    return   null;
+    }}
 
 
-}}
+
+
+
 
 
 
