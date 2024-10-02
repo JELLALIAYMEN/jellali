@@ -7,8 +7,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
-
 
 @Entity
 @AllArgsConstructor
@@ -22,10 +20,15 @@ public class Menu {
     private  String nomplatprincipal;
     private  String  nomplatDessert;
     private String nomplatentré;
-    private  String code;
+
     @Enumerated(EnumType.STRING)
     private Typemenucommandé typemenucommandé;
-    @OneToOne
+ private Long idel;
 
-    Eleve eleve;
+
+
+
+
+
+
 }

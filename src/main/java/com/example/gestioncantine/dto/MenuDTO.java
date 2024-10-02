@@ -3,6 +3,8 @@ package com.example.gestioncantine.dto;
 import com.example.gestioncantine.entites.Typemenucommandé;
 import lombok.Data;
 
+
+
 @Data
 public class MenuDTO {
     private  Long idmenu;
@@ -10,7 +12,8 @@ public class MenuDTO {
     private  String  nomplatDessert;
 
     private String nomplatentré;
-    private Typemenucommandé typemenucommandé;
-    private  String code;
 
+    private Typemenucommandé typemenucommandé;
+
+    private Long idel;
 }
