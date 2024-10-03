@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -6,7 +6,6 @@ import { AdminTemplateComponent } from './admin-template/admin-template.componen
 
 // Import Angular Material Modules
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
@@ -19,6 +18,10 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatSelectModule } from '@angular/material/select';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 // Import Reactive Forms Module
 import { ReactiveFormsModule } from '@angular/forms';
@@ -42,17 +45,14 @@ import { LoadPaymentsComponent } from './load-payments/load-payments.component';
 import { LoadacttualitesComponent } from './loadacttualites/loadacttualites.component';
 import { LoaddisciplinesComponent } from './loaddisciplines/loaddisciplines.component';
 import { LoadelComponent } from './loadel/loadel.component';
-
+import { NewpayComponent } from './newpay/newpay.component';
 
 // Import AuthService and AuthGuard
 import { AuthService } from './services/auth.service';
 import { AuthGuard } from './guards/auth.guard';
-import { StupayComponent } from './stupay/stupay.component';
-import {HttpClientModule} from "@angular/common/http";
-import { NewpayComponent } from './newpay/newpay.component';
-import {MatDatepicker, MatDatepickerInput, MatDatepickerToggle} from "@angular/material/datepicker";
-import {MatNativeDateModule} from "@angular/material/core";
-import {MatSelect, MatSelectModule} from "@angular/material/select";
+import { HttpClientModule } from '@angular/common/http';
+import { AuthorizationGuard } from './guards/AuthorizationGuard.guard';
+
 
 @NgModule({
   declarations: [
@@ -84,8 +84,6 @@ import {MatSelect, MatSelectModule} from "@angular/material/select";
     BrowserAnimationsModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    BrowserModule,
-    AppRoutingModule,
     HttpClientModule,
     // Angular Material Modules
     MatToolbarModule,
@@ -101,13 +99,12 @@ import {MatSelect, MatSelectModule} from "@angular/material/select";
     MatSortModule,
     MatInputModule,
     MatFormFieldModule,
-    MatDatepickerInput,
-    MatDatepickerToggle,
+    MatDatepickerModule,
     MatNativeDateModule,
-    MatDatepicker,
     MatSelectModule
   ],
-  providers: [AuthService, AuthGuard],
-  bootstrap: [AppComponent]
+  providers: [AuthService, AuthGuard, AuthorizationGuard],
+  bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA], // Add the CUSTOM_ELEMENTS_SCHEMA here
 })
 export class AppModule { }

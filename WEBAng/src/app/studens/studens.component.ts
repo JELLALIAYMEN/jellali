@@ -1,81 +1,35 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from "@angular/material/table";
-import { MatPaginator } from "@angular/material/paginator";
-import { MatSort } from "@angular/material/sort";
-import { Router } from "@angular/router";
-import {AuthService} from "../services/auth.service";
-import {Eleve, Payment} from "../../../Model/students.model";
-import {HttpClient} from "@angular/common/http";
-import {environment} from "../../environments/environment";
+import { StudentsService } from "../services/students.service";
+import { Eleve } from "../../../Model/students.model";
+import {MatPaginator} from "@angular/material/paginator";
+import {MatSort} from "@angular/material/sort";
 
 @Component({
   selector: 'app-studens',
   templateUrl: './studens.component.html',
-  styleUrls: ['./studens.component.css'] // Corrected here
+  styleUrls: ['./studens.component.css']
 })
-export class StudensComponent implements OnInit, AfterViewInit {
-  public students: any[] = []; // Initialize as an array
-  public datasource: MatTableDataSource<any>; // Specify the type as MatTableDataSource
+export class StudensComponent implements OnInit {
+  displayedColumns = ['id', 'firstName', 'secondname', 'gmail', 'code'];
+  students!: Array<Eleve>;
+  public datasource!: MatTableDataSource<Eleve>;
+  @ViewChild(MatPaginator) piginator!:MatPaginator;
+  @ViewChild(MatSort) sort!:MatSort;
 
-  displayedColumns = ['id', "firstName", "lastname", "gmail", "payments", "notes", "moyennes", "disciplines","réclamations"];
-
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort) sort!: MatSort;
-
-  constructor(private  authService:AuthService ,private router: Router,private http : HttpClient) {
-    // Initialize MatTableDataSource in the constructor
+  constructor(private StudentsService: StudentsService) {
     this.datasource = new MatTableDataSource(this.students);
   }
 
-  ngAfterViewInit(): void {
-    this.datasource.paginator = this.paginator;
-    this.datasource.sort = this.sort;
-  }
-
-
-
-
   ngOnInit() {
-     // Populate the students array
-    this.http.get("http://localhost:8037/payments")
-    for (let i: number = 1; i < 100; i++) {
-       this.students.push({
-        id: i,
-       firstName: Math.random().toString(20).substring(2, 7),
-        lastname: Math.random().toString(20).substring(2, 7),
-         gmail: `student${i}@example.com`
-       });
-    }
-     this.datasource.data = this.students; // Set the data for the dataSource
-   }
-
-  filterStudent($event: Event) {
-    const value = ($event.target as HTMLInputElement).value;
-    this.datasource.filter = value.trim().toLowerCase(); // Ensure the filter is case insensitive
-  }
-
-
-
-  getNotes(student: any) {
-    this.router.navigateByUrl("/admin/notes");
-  }
-  getPayments(student: Eleve) {
-    this.router.navigateByUrl('/admin/paystu/{+student.code}');
-
-  }
-
-
-  getMoyennes(student: any) { // Added parameter
-    this.router.navigateByUrl("admin/moy");
-  }
-
-  getDisciplines(student: any) {
-    this.router.navigateByUrl("admin/disciplines");
-  }
-
-  getReclamations(student:Eleve) {
-    this.router.navigateByUrl("/admin/paystu/$'+student.code");
+    this.StudentsService.getAll().subscribe({
+      next: (value: Eleve[]) => {  // Corrected the syntax here
+        this.students = value;
+        this.datasource = new MatTableDataSource<Eleve>(this.students);
+      },
+      error: (err) => {
+        console.error('Erreur lors de la récupération des étudiants :', err);
+      }
+    });
   }
 }
-
-

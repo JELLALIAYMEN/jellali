@@ -22,8 +22,9 @@ import {AuthService} from "./services/auth.service";
 import {AuthGuard} from "./guards/auth.guard.spec";
 import {LoadelComponent} from "./loadel/loadel.component";
 import {AuthorizationGuard} from "./guards/AuthorizationGuard.guard";
-import { StupayComponent } from './stupay/stupay.component'
+
 import {NewpayComponent} from "./newpay/newpay.component";
+
 
 const routes: Routes = [
   { path: "", component: LoginComponent },
@@ -42,13 +43,14 @@ const routes: Routes = [
 
 
 
+
       { path: "messageries", component: MessageriesComponent },
       { path: "document", component: DocumentsComponent },
       { path: "loadpay", component: LoadPaymentsComponent },
       { path: "loaddis", component: LoaddisciplinesComponent },
       { path: "elv", component: LoaddisciplinesComponent },
       { path: "réclamation", component: ReclamationsComponent },
-      { path: "paystu/:code", component:  StupayComponent },
+
       { path: 'moy', component: MoyennesComponent },
       { path: 'notes', component: NotesComponent },
       { path: 'newpay/:code', component: NewpayComponent  },

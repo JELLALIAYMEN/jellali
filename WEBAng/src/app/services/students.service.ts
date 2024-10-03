@@ -17,11 +17,12 @@ export class StudentsService {
     return this.http.get<Array<Payment>>(`${environment.backendHost}/payments`); // Appel à l'API
   }
 
-  public getAllél(): Observable<Array<Eleve>> {
+
+  public  getAll(): Observable<Array<Eleve>> {
     return this.http.get<Array<Eleve>>(`${environment.backendHost}/eleves`); // Appel à l'API
   }
-  getPayments(code: string): Observable<Array<Payment>> {
-    return this.http.get<Array<Payment>>(`${environment.backendHost}/eleves/${code}/payments`);
+  getStudentPayments(code: string): Observable<Array<Payment>> {
+    return this.http.get<Array<Payment>>(`${environment.backendHost}/eleve/${code}/paymts`);
   }
 
 

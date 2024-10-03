@@ -5,7 +5,7 @@
     </mat-card-header>
     <mat-divider></mat-divider>
     <mat-card-content>
-      <table matSort mat-table [dataSource]="dataSource" class="mat-elevation-z1">
+      <table matSort mat-table [dataSource]="datasource" class="mat-elevation-z1">
 
         <ng-container matColumnDef="id">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
@@ -37,9 +37,9 @@
           <td mat-cell *matCellDef="let element"> {{ element.amount }} </td>
         </ng-container>
 
-        <ng-container matColumnDef="code">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Code Élève </th>
-          <td mat-cell *matCellDef="let element"> {{ element.eleve.code }} </td>
+        <ng-container matColumnDef="firstName">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Eleve</th>
+          <td mat-cell *matCellDef="let element"> {{  element.eleve.firstName }} </td>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

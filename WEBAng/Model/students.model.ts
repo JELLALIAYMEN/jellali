@@ -1,24 +1,29 @@
 export interface Eleve {
-  id: number,
-  firstName: String,
-  secondname: String,
-  gmail: String,
-  code: String,
-  photo: String,
-  classe : Classe
+  firstName: string;
+  secondname: string;
+  addrese: string;
+  gmail: string;
+  photo: string;
+  niveau: string;
+  id_classe: number;
+  idel: number;
+  code: string;
+
 }
+
 export interface  Classe{
   id_classe:number,
 
    nom:String
 }
 
+
 export interface Payment {
-  id: number,
-  date: String,
-  amount: number,
-  file: String,
-  eleve: Eleve
+  id: number;
+  date: string; // Changer String à string
+  amount: number;
+  file: string; // Changer String à string
+  eleve: Eleve;
 }
 
 
